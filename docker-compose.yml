@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web-api:
+    container_name: web-api
+    build: .
+    ports:
+      - "8080:8080"
+      - "9111:9111"
+    networks:
+      - fibonacci
+    depends_on:
+      - "redis-db"
+
+  redis-db:
+    container_name: redis-db
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - fibonacci
+
+networks:
+  fibonacci:
+    name: fibonacci

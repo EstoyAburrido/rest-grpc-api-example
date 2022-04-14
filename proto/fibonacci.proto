@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/estoyaburrido/rest-grpc-api-example/app/grpc/proto;proto";
+
+message GetSequenceRequest{
+    uint64 X = 1;
+    uint64 Y = 2;
+}
+
+message GetSequenceResponse{
+    repeated uint64 res = 1;
+}
+
+service FibonacciService {
+    rpc Get(GetSequenceRequest) returns (GetSequenceResponse);
+}

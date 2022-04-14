@@ -1,0 +1,7 @@
+{
+    "Host": "web-api",
+	"HttpPort": "8080",
+	"GrpcPort": "9111",
+    "RedisDatabaseHost": "redis-db",
+	"RedisDatabasePort": "6379"
+}
