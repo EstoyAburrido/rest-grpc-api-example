@@ -75,12 +75,12 @@ func TestRest(t *testing.T) {
 	c := e.NewContext(req, rec)
 	c.Response().Header()["Accept"] = []string{"application/json"}
 
-	if assert.NoError(t, h.getFibonacci(c)) {
-		assert.Equal(t, http.StatusOK, rec.Code)
+	if assert.NoError(t, h.getFibonacci(c), "error at 1st http test") {
+		assert.Equal(t, http.StatusOK, rec.Code, "bad response code at 1st http test")
 
 		var seqResp []uint64
 		assert.NoError(t, json.Unmarshal(rec.Body.Bytes(), &seqResp))
-		assert.ElementsMatch(t, reference[:firstReq.Y+1], seqResp)
+		assert.ElementsMatch(t, reference[:firstReq.Y+1], seqResp, "elements don't match at 1st rest test")
 	}
 
 	// Testing from non-zero index and expanding the cached array
@@ -92,11 +92,11 @@ func TestRest(t *testing.T) {
 	c = e.NewContext(req, rec)
 	c.Response().Header()["Accept"] = []string{"application/json"}
 
-	if assert.NoError(t, h.getFibonacci(c)) {
-		assert.Equal(t, http.StatusOK, rec.Code)
+	if assert.NoError(t, h.getFibonacci(c), "error at 2nd http test") {
+		assert.Equal(t, http.StatusOK, rec.Code, "bad response code at 2nd http test")
 
 		var seqResp []uint64
 		assert.NoError(t, json.Unmarshal(rec.Body.Bytes(), &seqResp))
-		assert.ElementsMatch(t, reference[secondReq.X:secondReq.Y+1], seqResp)
+		assert.ElementsMatch(t, reference[secondReq.X:secondReq.Y+1], seqResp, "elements don't match at 2nd rest test")
 	}
 }
