@@ -35,6 +35,10 @@ func NewController(host, port string, logger *logrus.Entry, fibonacci *tools.Fib
 	return controller
 }
 
+func (c *GrpcController) Shutdown() {
+	c.grpcServer.GracefulStop()
+}
+
 func (c *GrpcController) Run() error {
 	lis, err := net.Listen("tcp", fmt.Sprintf("%v:%v", c.host, c.port))
 	if err != nil {

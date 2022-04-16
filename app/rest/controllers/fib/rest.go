@@ -1,6 +1,7 @@
 package fib
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -39,6 +40,14 @@ func NewController(host, port string, fibonacci *tools.Fibonacci) *Controller {
 func (controller *Controller) Run() error {
 	connectionString := fmt.Sprintf("%v:%v", controller.host, controller.port)
 	return controller.e.Start(connectionString)
+}
+
+func (controller *Controller) Shutdown(ctx context.Context) error {
+	return controller.e.Shutdown(ctx)
+}
+
+func (controller *Controller) Logger() echo.Logger {
+	return controller.e.Logger
 }
 
 // For testing
